@@ -6,14 +6,14 @@ deals = {}
 number_of_players = input("Enter the number of players: ")
 number_of_players = int(number_of_players)
 
-def initialise_money(number_of_players):
+def initialise_money(number_of_players):                        # Initialise the number of players
     for x in range(number_of_players):
         name = input(f"Enter the name of player {x + 1}: ")
         money[name] = STARTING_AMOUNT
     update_money(money)
     ask()
 
-def print_details():
+def print_details():                                             # Prints out the balance of each player
     details = extract_money()
     for key, value in details.items():
         cash = value
@@ -22,17 +22,17 @@ def print_details():
         else:
             print(f"{key}:\t{value / 1000}M")
 
-def print_deals():
+def print_deals():                                              # Prints out all the deals
     deals = extract_deals()
     for player, player_deals in deals.items():
         print(f"Deals for {player}:")
         for i, deal in enumerate(player_deals, 1):
             print(f"  {i}. {deal}")
 
-def ask():
+def ask():                                                      # Asks for the functionality
     ans = input("Do you want to view your cash(*), add(+), subtract(-), record a deal(d), view the deals(v) or remove a deal(r)? ")
     if ans != "exit":
-        if ans == "+":
+        if ans == "+":                                          # If the user wants to add into their account
             player_name = input("Enter the player name: ")
             amount = int(input(f"Enter the amount to add for {player_name}: "))
             if player_name in money:
@@ -41,7 +41,7 @@ def ask():
                 print(f"{amount}k added to {player_name}.")
             else:
                 print(f"No player found with name {player_name}.")
-        if ans == "-":
+        if ans == "-":                                          # If player wants to spend from their account
             player_name = input("Enter the player name: ")
             amount = int(input(f"Enter the amount to subtract for {player_name}: "))
             if player_name in money:
@@ -53,9 +53,9 @@ def ask():
                     print(f"Not enough funds. {player_name} has only {money[player_name]}k.")
             else:
                 print(f"No player found with name {player_name}.")
-        if ans == "*":
+        if ans == "*":                                              # If player wants to know about their balance
             print_details()
-        if ans == "d":
+        if ans == "d":                                              # Adds a deal
             player_name = input("Enter the player name: ")
             deal = input(f"Enter the deal for {player_name}: ")
             if player_name in deals:
@@ -64,7 +64,7 @@ def ask():
                 deals[player_name] = [deal]
             update_deals(deals)
             print(f"Deal recorded for {player_name}.")
-        if ans == "r":
+        if ans == "r":                                              # Removes an existing deal
             player_name = input("Enter the player name: ")
             if player_name in deals and deals[player_name]:
                 print(f"Deals for {player_name}:")
@@ -79,11 +79,11 @@ def ask():
                     print("Invalid deal number.")
             else:
                 print(f"No deals found for {player_name}.")
-        if ans == "v":
+        if ans == "v":                                           # prints out all the deals made
             print_deals()
         loopin()
 
-def loopin():
+def loopin():                                                   # a loop
     try:
         ask()
     except KeyboardInterrupt:
